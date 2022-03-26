@@ -3,7 +3,7 @@
  * @Author: wangyang
  * @Date: 2022-03-25 14:31:24
  * @LastEditors: wangyang
- * @LastEditTime: 2022-03-26 16:34:29
+ * @LastEditTime: 2022-03-26 17:13:16
 -->
 
 <!DOCTYPE html>
@@ -142,7 +142,41 @@
         // Promise.reject(500).then(data => {
         //     console.log(data)
         // })
-       //promise.race()
+        //promise.race()
+        Promise.race = function (promises) {
+            return new Promise((resolve, reject) => {
+                //遍历promises，看谁先满足条件，谁先满足条件，就先让外层的promise resolve
+                //promise的状态只能被修改一次，只要第一次改了，就成功，后续再改，也无效
+                for (let i = 0; i < promises.length; i++) {
+                    promises[i].then((value) => {
+                        resolve(value)
+                    }, err => {
+                        reject(err)
+                    })
+                }
+            })
+        }
+
+        // let p1 = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         console.log(1)
+        //     }, 1000)
+        // })
+        // let p2 = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         console.log(2)
+        //     }, 2000)
+        // })
+        // let p3 = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         console.log(3)
+        //     }, 3000)
+        // })
+
+        // Promise.race([p1, p2, p3]).then(data => {
+        //     console.log(data)
+        // })
+
        //promise.all()
 
     </script>
