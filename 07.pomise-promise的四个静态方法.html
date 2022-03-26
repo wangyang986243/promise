@@ -3,7 +3,7 @@
  * @Author: wangyang
  * @Date: 2022-03-25 14:31:24
  * @LastEditors: wangyang
- * @LastEditTime: 2022-03-26 16:23:43
+ * @LastEditTime: 2022-03-26 16:34:29
 -->
 
 <!DOCTYPE html>
@@ -57,7 +57,7 @@
             }
             //在Promise 原型上添加 then 方法
             then(onFulfulled, onRejected) {
-                console.log('我是then方法')
+                // console.log('我是then方法')
                 let p = new Promise((resolve, reject) => {
                     if (this.state == 'fulfilled') {
 
@@ -123,15 +123,28 @@
             }
 
         }
-        //promise 里面的回调叫 executor函数
-        const p = new Promise((resolve, reject) => {
-            resolve('500')
-        })
-        const p2 = p.then((data) => {
-            console.log(data)
-            return p2
-        })
-        p2.then(() => { }, err => console.log(err))
+        //promise.resolve()
+        Promise.resolve = function (value) {
+            return new Promise((resolve, reject) => {
+                resolve(value)
+            })
+        }
+        // Promise.resolve(200).then(data => {
+        //     console.log(data)
+        // })
+
+        //promise.reject()
+        Promise.reject = function (err) {
+            return new Promise((resolve, reject) => {
+                resolve(err)
+            })
+        }
+        // Promise.reject(500).then(data => {
+        //     console.log(data)
+        // })
+       //promise.race()
+       //promise.all()
+
     </script>
 </body>
 
